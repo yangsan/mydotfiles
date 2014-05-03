@@ -134,29 +134,29 @@ set wrap
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "设置一下leader键
-let mapleader = '/'
+let mapleader = '\'
 
 "将jj映射到escape
-imap jj <Esc>
+inoremap jj <Esc>
 
-nmap Y y$
+nnoremap Y y$
 
 "在分屏中间方便移动的映射
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-h> <C-w>h
-nmap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 "将j和k的移动由逻辑行转为屏幕行
-map j gj
-map k gk
+noremap j gj
+noremap k gk
 
-imap kk <C-o>
+inoremap kk <C-o>
 
 "file navigation
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
-map <leader>e :edit %%
-map <leader>v :view %%
+noremap <leader>e :edit %%
+noremap <leader>v :view %%
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -186,12 +186,32 @@ autocmd FileType markdown set columns=90 lines=50
 "正确识别markdown文件
 autocmd BufNewFile,BufRead *.md,*.mkdn,*.markdown :set filetype=markdown
 
+autocmd BufWritePost *.mkdn make %<.pdf
+
 "bash
 au BufNewFile *.sh 0r /home/kevin/document/templates/python_header.template
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
+
+
+
+
+
+"一些有用的函数
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>p :call SetPaste()<cr>
+
+function! SetPaste()
+    if &paste
+        setlocal paste!
+    else
+        setlocal paste
+    endif
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
@@ -219,7 +239,7 @@ Bundle 'AutoClose'
 "显示树状文件目录
 Bundle 'The-NERD-tree'
 "定义一下启动nerd tree的热键，我用的是Ctrl+n
-map <C-t> :NERDTreeToggle<CR>
+noremap <C-t> :NERDTreeToggle<CR>
 "自动打开nerdtree
 "autocmd vimenter * NERDTree
 "在只剩一个nerdtree的情况下关闭窗口
